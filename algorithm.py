@@ -32,6 +32,40 @@ def bfs(grid,start,goal,callback):
     return None
 
 
+def dfs(grid,start,goal,callback):
+
+    directions = [(-1,0),(0,1),(1,0),(1,1),(0,-1),(-1,-1)]
+    rows,cols = grid.shape
+    stack = [start]
+    visited = {start}
+    parent = {start: None}
+
+    while stack:
+        curr = stack.pop()
+
+        if curr == goal:
+            return reconstruct_path(parent,start,goal)
+
+        for dr,dc in reversed(directions):
+            r,c = curr[0]+dr, curr[1]+dc
+
+            if 0<=r<rows and 0<=c<cols and grid[r][c] != 1 and (r,c) not in visited:
+                visited.add((r,c))
+                parent[(r,c)] = curr
+
+                if(r,c) != goal:
+                    grid[r][c] = 4
+
+                callback(grid)
+                stack.append((r,c))
+
+                if (r,c)==goal:
+                    break
+
+    return None
+
+
+
 def reconstruct_path(parent,start,goal):
     path = []
     curr = goal
