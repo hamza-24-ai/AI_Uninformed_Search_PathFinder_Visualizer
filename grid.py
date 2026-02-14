@@ -5,9 +5,10 @@ from matplotlib import colors
 
 def create_grid(rows=20, cols=20):
     grid = np.zeros((rows, cols))
-    # Wall aisi rakhein jo rasta block na kare
+
     grid[5:15, 10] = 1
-    return grid
+    costs = np.random.randint(1,101,size=(rows,cols))
+    return grid,costs
 
 
 def setup_plot(grid):
@@ -17,7 +18,7 @@ def setup_plot(grid):
     norm = colors.BoundaryNorm(bounds, cmap.N)
 
     fig, ax = plt.subplots(figsize=(8, 8))
-    # 'interpolation=nearest' se pixels boxes ki tarah nazar aayenge
+
     img = ax.imshow(grid, cmap=cmap, norm=norm, interpolation='nearest')
 
     ax.set_xticks(np.arange(-.5, grid.shape[1], 1), minor=True)

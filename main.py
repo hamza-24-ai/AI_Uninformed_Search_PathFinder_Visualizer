@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 from grid import create_grid, setup_plot
-from algorithm import bfs,dfs
+from algorithm import bfs,dfs,ucs
 
 
 def getvalues():
@@ -25,7 +25,7 @@ def getvalues():
     return start, goal
 def main():
 
-    my_grid = create_grid(20,20)
+    my_grid, my_cost = create_grid(20,20)
     s,g = getvalues()
     start_node = (s,s)
     goal_node = (g,g)
@@ -57,6 +57,9 @@ def main():
     elif choice == '2':
         print("DFS is Running....")
         path = dfs(my_grid, start_node, goal_node, update_gui)
+    elif choice == '3':
+        print("Uniform Cost Search Is Working....")
+        path = ucs(my_grid,my_cost,start_node,goal_node,update_gui)
 
     if path:
         print("Path Find !!")
