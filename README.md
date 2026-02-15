@@ -1,8 +1,8 @@
-#Pathfinding Visualizer (Python & Matplotlib)
+# Pathfinding Visualizer (Python & Matplotlib) 
 A real-time grid-based pathfinding visualizer built with Python. This project implements various Artificial Intelligence 
 search algorithms to find the most efficient path between a Start and Goal node on a 20x20 grid.
 
-🚀## Features
+## 🚀 Features
 Real-time Visualization: Watch how each algorithm explores the grid.
 
 6-Directional Movement: Supports Up, Down, Left, Right, and two Diagonals.
@@ -11,7 +11,7 @@ Obstacles: Includes a central wall to test pathfinding around barriers.
 
 Interactive Input: Choose your own Start and Goal coordinates.
 
-##🧠 Algorithms Implemented
+## 🧠 Algorithms Implemented
 Algorithm        Type        Shortest Path?        Special Feature
 BFS         Breadth-First          Yes          Explores layer by layer.
 DFS         Depth-First            No           Fast, but can take very long paths.
@@ -21,7 +21,7 @@ IDDFS       Iterative Deepening    Yes          Combines DFS memory efficiency w
 Bi          Two-way BFS            Yes          Searches from both ends to meet in the middle.
 directional
 
-##🛠️ Technologies Used
+## 🛠️ Technologies Used
 Python 3.x
 
 Matplotlib: Used for the graphical interface and real-time grid updates.
@@ -30,7 +30,7 @@ NumPy: Handles the 2D array (Grid) and cost matrix operations.
 
 Heapq: Used for the Priority Queue in Uniform Cost Search (UCS).
 
-##📸 Visualization Legend
+## 📸 Visualization Legend
 🟩 Green: Start Node
 
 🟥 Red: Goal Node
@@ -41,18 +41,18 @@ Heapq: Used for the Priority Queue in Uniform Cost Search (UCS).
 
 🟧 Orange: Final Path found from Start to Goal
 
-##Goal
+## Goal
 
-###🏃 How to Run
+### 🏃 How to Run
 Clone the repository:
 
-##Bash
+### Bash
 git clone https://github.com/hamza-24-ai/AI_Uninformed_Search_PathFinder_Visualizer.git
 
-##Install dependencies:
-###Bash
+## Install dependencies:
+### Bash
 pip install matplotlib numpy
 
-##Run the application:
-###Bash
+## Run the application:
+### Bash
 python main.py
