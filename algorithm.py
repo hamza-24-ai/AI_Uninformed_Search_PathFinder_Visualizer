@@ -1,4 +1,5 @@
 import collections as cl
+from collections import deque
 import heapq
 
 def bfs(grid,start,goal,callback):
@@ -151,6 +152,79 @@ def iddfs(grid, start, goal, max_limit, callback):
             return path
 
     return None
+
+
+def bidirectional_search(grid, start, goal, callback):
+    directions = [(-1, 0), (0, 1), (1, 0), (1, 1), (0, -1), (-1, -1)]
+    rows, cols = grid.shape
+
+    # Forward Search Setup
+    q_f = deque([start])
+    parent_f = {start: None}
+    visited_f = {start}
+
+    # Backward Search Setup
+    q_b = deque([goal])
+    parent_b = {goal: None}
+    visited_b = {goal}
+
+    while q_f and q_b:
+        # 1. Forward Step
+        curr_f = q_f.popleft()
+        for dr, dc in directions:
+            r, c = curr_f[0] + dr, curr_f[1] + dc
+            if 0 <= r < rows and 0 <= c < cols and grid[r][c] != 1:
+                if (r, c) not in visited_f:
+                    visited_f.add((r, c))
+                    parent_f[(r, c)] = curr_f
+                    if (r, c) != goal and (r, c) != start:
+                        grid[r][c] = 4  # Blue exploration
+                    q_f.append((r, c))
+
+                    # Intersection Check: Kya ye Backward search ne pehle hi dekha hua hai?
+                    if (r, c) in visited_b:
+                        callback(grid)
+                        return assemble_bidirectional_path(parent_f, parent_b, (r, c), start, goal)
+
+        # 2. Backward Step
+        curr_b = q_b.popleft()
+        for dr, dc in directions:
+            r, c = curr_b[0] + dr, curr_b[1] + dc
+            if 0 <= r < rows and 0 <= c < cols and grid[r][c] != 1:
+                if (r, c) not in visited_b:
+                    visited_b.add((r, c))
+                    parent_b[(r, c)] = curr_b
+                    if (r, c) != goal and (r, c) != start:
+                        grid[r][c] = 4
+                    q_b.append((r, c))
+
+                    # Intersection Check: Kya ye Forward search ne pehle hi dekha hua hai?
+                    if (r, c) in visited_f:
+                        callback(grid)
+                        return assemble_bidirectional_path(parent_f, parent_b, (r, c), start, goal)
+
+        callback(grid)
+
+    return None
+
+
+def assemble_bidirectional_path(parent_f, parent_b, meeting_node, start, goal):
+    # Path from start to meeting point
+    path_f = []
+    curr = meeting_node
+    while curr is not None:
+        path_f.append(curr)
+        curr = parent_f[curr]
+    path_f = path_f[::-1]
+
+    # Path from meeting point to goal
+    path_b = []
+    curr = parent_b[meeting_node]  # Meeting node ka parent Backward side par
+    while curr is not None:
+        path_b.append(curr)
+        curr = parent_b[curr]
+
+    return path_f + path_b
 
 def reconstruct_path(parent,start,goal):
     path = []

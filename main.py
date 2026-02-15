@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 from grid import create_grid, setup_plot
-from algorithm import bfs,dfs,ucs,iddfs,dls
+from algorithm import bfs,dfs,ucs,iddfs,dls,bidirectional_search
 
 
 def getvalues():
@@ -81,6 +81,10 @@ def main():
 
         print("Depth Limiting search is starting....")
         path = dls(my_grid,start_node,goal_node,limit,update_gui)
+    elif choice == '6':
+        print("Bidirectional_Search is Working....")
+        path = bidirectional_search(my_grid,start_node,goal_node,update_gui)
+
 
     if path:
         print("Path Find !!")
