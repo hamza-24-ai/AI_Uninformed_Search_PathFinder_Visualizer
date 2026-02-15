@@ -104,6 +104,54 @@ def ucs(grid, costs, start, goal, callback):
                     heapq.heappush(pq, (new_cost, (r, c)))
     return None
 
+
+def dls(grid, start, goal, limit, callback):
+
+    directions = [(-1, 0), (0, 1), (1, 0), (1, 1), (0, -1), (-1, -1)]
+
+    stack = [(start, 0)]
+    visited = {start: 0}
+    parent = {start: None}
+
+    while stack:
+        curr, depth = stack.pop()
+
+        if curr == goal:
+            return reconstruct_path(parent, start, goal)
+
+        if depth < limit:
+            for dr, dc in reversed(directions):
+                r, c = curr[0] + dr, curr[1] + dc
+
+                if 0 <= r < len(grid) and 0 <= c < len(grid[0]) and grid[r][c] != 1:
+                    # Depth check for visiting
+                    if (r, c) not in visited or depth + 1 < visited[(r, c)]:
+                        visited[(r, c)] = depth + 1
+                        parent[(r, c)] = curr
+
+                        if (r, c) != goal:
+                            grid[r][c] = 4
+
+                        callback(grid)
+                        stack.append(((r, c), depth + 1))
+    return None
+
+
+def iddfs(grid, start, goal, max_limit, callback):
+    # Iteratively increase the limit
+    for limit in range(max_limit):
+        print(f"Searching with Limit: {limit}")
+
+        temp_grid = grid.copy()
+
+        path = dls(temp_grid, start, goal, limit, callback)
+
+        if path:
+
+            return path
+
+    return None
+
 def reconstruct_path(parent,start,goal):
     path = []
     curr = goal

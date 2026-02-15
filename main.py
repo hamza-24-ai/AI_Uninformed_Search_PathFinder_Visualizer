@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 from grid import create_grid, setup_plot
-from algorithm import bfs,dfs,ucs
+from algorithm import bfs,dfs,ucs,iddfs,dls
 
 
 def getvalues():
@@ -23,6 +23,19 @@ def getvalues():
         print("Invalid! Please enter a number between 0 and 19.")
 
     return start, goal
+
+def getting_user_limit():
+
+    while True:
+        user_limit = input("Enter Limit (1->20) : ")
+        if user_limit.isdigit():
+            user=int(user_limit)
+            if 20 > user >= 1:
+                break
+        print("Invalid Input , Enter the Valid Input ")
+
+    return user
+
 def main():
 
     my_grid, my_cost = create_grid(20,20)
@@ -60,6 +73,14 @@ def main():
     elif choice == '3':
         print("Uniform Cost Search Is Working....")
         path = ucs(my_grid,my_cost,start_node,goal_node,update_gui)
+    elif choice == '4':
+        print("Iterative Deepining Depth First Search Is Working....")
+        path = iddfs(my_grid,start_node,goal_node,50,update_gui)
+    elif choice == '5':
+        limit = getting_user_limit()
+
+        print("Depth Limiting search is starting....")
+        path = dls(my_grid,start_node,goal_node,limit,update_gui)
 
     if path:
         print("Path Find !!")
