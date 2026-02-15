@@ -12,14 +12,15 @@ Obstacles: Includes a central wall to test pathfinding around barriers.
 Interactive Input: Choose your own Start and Goal coordinates.
 
 ## 🧠 Algorithms Implemented
-Algorithm        Type        Shortest Path?        Special Feature
-BFS         Breadth-First          Yes          Explores layer by layer.
-DFS         Depth-First            No           Fast, but can take very long paths.
-UCS         Uniform Cost           Yes          Uses Random Costs (1-100) for each cell.
-DLS         Depth Limited          No           Stops at a user-defined depth limit.
-IDDFS       Iterative Deepening    Yes          Combines DFS memory efficiency with BFS optimality.
-Bi          Two-way BFS            Yes          Searches from both ends to meet in the middle.
-directional
+
+| Algorithm | Type | Shortest Path? | Special Feature |
+| :--- | :--- | :--- | :--- |
+| **BFS** | Breadth-First | Yes | Explores layer by layer. |
+| **DFS** | Depth-First | No | Fast, but can take very long paths. |
+| **UCS** | Uniform Cost | Yes | Uses Random Costs (1-100) per cell. |
+| **DLS** | Depth Limited | No | Stops at a user-defined depth limit. |
+| **IDDFS** | Iterative Deepening | Yes | Best of BFS & DFS. |
+| **Bidirectional** | Two-way BFS | Yes | Meets in the middle for speed. |
 
 ## 🛠️ Technologies Used
 Python 3.x
